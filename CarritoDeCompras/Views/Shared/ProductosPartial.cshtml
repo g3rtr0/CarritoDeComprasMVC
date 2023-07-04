@@ -1,0 +1,41 @@
+﻿
+<div class="row">
+    @foreach (var producto in Model)
+    {
+        <div class="col-3">
+            <div class="card mb-5" style="width: 18rem; height: 30rem">
+                <img src="@Url.Content(producto.ImagenUrl)" class="card-img-top" style="height: 16rem; object-fit: cover;" alt="@producto.Nombre">
+                <div class="card-body">
+                    <h5 class="card-title text-center col-sm-auto">@producto.Nombre</h5>
+                    <p class="card-text text-center" style="display:flex; align-content:center; justify-content:center;">@producto.Descripcion</p>
+                    <p class="card-text text-center"><strong>Precio: </strong>@String.Format("{0:C}", producto.Precio)</p>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a onclick="productoAgregado('@producto.Id')" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);" href="#" class="btn btn-primary">Agregar al carro</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@*Scripts*@
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function productoAgregado(id) {
+        Swal.fire({
+            title: 'Producto Agregado',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
+        setTimeout(function() {
+            var url = '@Url.Action("AgregarAlCarro", "CarroCompras")' + '?id=' + id;
+            window.location.href = url;
+        }, 1000);
+
+    }
+</script>
+

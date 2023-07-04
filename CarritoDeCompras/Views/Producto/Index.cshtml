@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CarritoDeCompras.Models.ProductoModels>
+
+@{
+    ViewBag.Title = "Mantenedor Productos";
+}
+
+<h1 class="mt-5 mb-4">Mantenedor de Productos</h1>
+@Html.Partial("CreateProductoPartial")
+
+<div class="card mt-5">
+    <div class="card-header">
+        Listado de Productos
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fabricante)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Precio</td>
+                        <td>@item.Codigo</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Stock</td>
+                        <td>@item.Fabricante</td>
+                        <td>@item.Categoria</td>
+                        <td>
+                            <div class="d-flex justify-content-start">
+                                <div class="d-inline-block ">
+                                    <button class="btn btn-primary mx-2" onclick="window.location.href='@Url.Action("Edit", new { id = item.Id })'">Editar</button>
+                                </div>
+                                <div class="d-inline-block">
+                                    <button class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Eliminar</button>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            }
+
+        </table>
+    </div>
+</div>
+

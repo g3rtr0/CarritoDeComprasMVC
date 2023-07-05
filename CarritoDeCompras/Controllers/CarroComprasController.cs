@@ -44,7 +44,7 @@ namespace CarritoDeCompras.Controllers
                 else
                     compras[IndexExistente].Cantidad++;
                 Session["carrito"] = compras;
-                
+
             }
             return RedirectToAction("Index", "Home");
         }
@@ -65,11 +65,17 @@ namespace CarritoDeCompras.Controllers
         }
         public ActionResult FinalizarCompra()
         {
-
+            int count = 0;
             List<VentaModels> compras = (List<VentaModels>)Session["carrito"];
-            if (compras.Count == 0)
+
+            if (compras != null)
             {
-                ViewBag.Mensaje = "El número de compras es menor a cero";
+                List<CarritoDeCompras.Models.VentaModels> list = Session["carrito"] as List<CarritoDeCompras.Models.VentaModels>;
+                count = list.Count;
+            }
+            else
+            {
+                Session["carrito"] = new List<CarritoDeCompras.Models.VentaModels>();
             }
             return View();
         }
@@ -119,7 +125,6 @@ namespace CarritoDeCompras.Controllers
                     Total = (decimal)total,
 
                 };
-                DisminuirStockEnCarrito();
                 Session.Remove("carrito");
                 _db.Venta.Add(venta);
                 _db.SaveChanges();

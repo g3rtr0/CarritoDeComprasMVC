@@ -1,77 +1,67 @@
-﻿<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-@{
-    int count = 0;
-
-    if (Session["carrito"] != null)
-    {
-        List<CarritoDeCompras.Models.VentaModels> list = Session["carrito"] as List<CarritoDeCompras.Models.VentaModels>;
-        count = list.Count;
-    }
-
-    else
-    {
-        Session["carrito"] = new List<CarritoDeCompras.Models.VentaModels>();
-    }
-
-    var ListaProductos = Session["carrito"] as List<CarritoDeCompras.Models.VentaModels>;
-}
-<h2>Venta</h2>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <table class="table table-bordered table-light">
-                <thead>
-                    <tr class="text-center">
-                        <th>Producto</th>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        double total = 0;
-                    }
-                    @if (Session["carrito"] != null)
-                    {
-                        foreach (var item in (List<CarritoDeCompras.Models.VentaModels>)Session["carrito"])
-                        {
-                            string rutaCompletaArchivo = item.producto.ImagenUrl;
-                            string nombreArchivo = Path.GetFileName(rutaCompletaArchivo);
-                            total += (double)(item.Cantidad * item.producto.Precio);
-                            <tr class="text-center">
-                                <td scope="row" style="text-align: center; vertical-align: middle;"><img style="width: 100px; height: 100px; display: block; margin: 0 auto;" src="~/img/Productos/@nombreArchivo" /></td>
-                                <td>@item.producto.Id</td>
-                                <td>@item.producto.Nombre</td>
-                                <td>@item.Cantidad</td>
-                                <td>@String.Format("{0:C}", item.producto.Precio)</td>
-
-                                <td><button class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "CarroCompras", new { id = item.producto.Id })'">Eliminar</button></td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">Total</td>
-                        <th>@String.Format("{0:C}", total)</th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h2>Venta</h2>
+    <div class="container">
         <div class="row">
             <div class="col">
-                <a class="btn btn-primary" onclick="mostrarMensaje()" href="#">Pagar</a>
+                <table class="table table-bordered table-light">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Producto</th>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            double total = 0;
+                        }
+                        @if (Session["carrito"] != null)
+                        {
+                            foreach (var item in (List<CarritoDeCompras.Models.VentaModels>)Session["carrito"])
+                            {
+                                string rutaCompletaArchivo = item.producto.ImagenUrl;
+                                string nombreArchivo = Path.GetFileName(rutaCompletaArchivo);
+                                total += (double)(item.Cantidad * item.producto.Precio);
+                                <tr class="text-center">
+                                    <td scope="row" style="text-align: center; vertical-align: middle;"><img style="width: 100px; height: 100px; display: block; margin: 0 auto;" src="~/img/Productos/@nombreArchivo" /></td>
+                                    <td>@item.producto.Id</td>
+                                    <td>@item.producto.Nombre</td>
+                                    <td>@item.Cantidad</td>
+                                    <td>@String.Format("{0:C}", item.producto.Precio)</td>
+
+                                    <td><button class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "CarroCompras", new { id = item.producto.Id })'">Eliminar</button></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Total</td>
+                            <th>@String.Format("{0:C}", total)</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-primary" onclick="mostrarMensaje()" href="#">Pagar</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+
+
 
 @section Scripts{
 

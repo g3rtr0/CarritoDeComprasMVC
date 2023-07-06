@@ -49,34 +49,22 @@ namespace CarritoDeCompras.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private void DisminuirStockEnCarrito(List<VentaModels> carrito)
-        {
-            foreach (VentaModels venta in carrito)
-            {
-                int idProducto = venta.producto.Id;
-                int cantidad = venta.Cantidad;
-                int agregar = 1;
-                ProductoModels producto = _db.Producto.Find(idProducto);
-                producto.Stock -= cantidad;
-                producto.Stock += agregar;
-            }
+        //private void DisminuirStockEnCarrito(List<VentaModels> carrito)
+        //{
+        //    foreach (VentaModels venta in carrito)
+        //    {
+        //        int idProducto = venta.producto.Id;
+        //        int cantidad = venta.Cantidad;
+        //        int agregar = 1;
+        //        ProductoModels producto = _db.Producto.Find(idProducto);
+        //        producto.Stock -= cantidad;
+        //        producto.Stock += agregar;
+        //    }
 
-            _db.SaveChanges(); // Guardar los cambios en la base de datos
-        }
+        //    _db.SaveChanges(); // Guardar los cambios en la base de datos
+        //}
         public ActionResult FinalizarCompra()
         {
-            int count = 0;
-            List<VentaModels> compras = (List<VentaModels>)Session["carrito"];
-
-            if (compras != null)
-            {
-                List<CarritoDeCompras.Models.VentaModels> list = Session["carrito"] as List<CarritoDeCompras.Models.VentaModels>;
-                count = list.Count;
-            }
-            else
-            {
-                Session["carrito"] = new List<CarritoDeCompras.Models.VentaModels>();
-            }
             return View();
         }
 

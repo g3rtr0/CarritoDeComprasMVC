@@ -1,115 +1,122 @@
-﻿
-<div class="container">
+﻿<head>
+    <script>
+        function validarFormulario() {
+            var codigo = document.getElementsByName("Codigo")[0].value;
+            var nombre = document.getElementsByName("Nombre")[0].value;
+            var precio = document.getElementsByName("Precio")[0].value;
+            var descripcion = document.getElementsByName("Descripcion")[0].value;
+            // Validar los demás campos
 
-    <!-- Formulario de creación de producto -->
-    <div class="card">
-        <div class="card-header">
-            Crear Producto
-        </div>
-        <div class="card-body">
-            @using (Html.BeginForm("Create", "Producto", FormMethod.Post, new
-            {
-                enctype = "multipart/form-data",
-                onsubmit = "return validarFormulario();"
-            }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Código</h5>
-                                <input type="text" class="form-control" placeholder="Código del producto" name="Codigo">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Nombre</h5>
-                                <input type="text" class="form-control" placeholder="Nombre del producto" name="Nombre" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Precio</h5>
-                                <input type="text" class="form-control" placeholder="Precio del producto" name="Precio" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Descripción</h5>
-                                <input type="text" class="form-control" placeholder="Descripción del producto" name="Descripcion" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Stock</h5>
-                                <input type="number" class="form-control" placeholder="Stock del producto" name="Stock" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Fabricante</h5>
-                                <input type="text" class="form-control" placeholder="Fabricante del producto" name="Fabricante" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <h5 class="mt-3">Categoria</h5>
-                                <input type="text" class="form-control" placeholder="Categoria del producto" name="Categoria" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h5 class="form-group mt-3" for="Imagen">Imagen</h5>
-                            <div class="input-group">
-                                <input type="file" class="form-control" id="Imagen" name="imagen" aria-describedby="inputGroupFileAddon" aria-label="Imagen">
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group col-11 text-lg-center">
-                        <button type="submit" class="btn btn-primary mt-3">Crear producto</button>
-                    </div>
-                </div>
+            if (codigo.trim() === "") {
+                alert("Por favor, ingresa el código del producto.");
+                return false;
             }
+
+            if (nombre.trim() === "") {
+                alert("Por favor, ingresa el nombre del producto.");
+                return false;
+            }
+
+            if (precio.trim() === "") {
+                alert("Por favor, ingresa el precio del producto.");
+                return false;
+            }
+
+            if (descripcion.trim() === "") {
+                alert("Por favor, ingresa la descripción del producto.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Formulario de creación de producto -->
+        <div class="card">
+            <div class="card-header">
+                Crear Producto
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("Create", "Producto", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validarFormulario();" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="container">
+                        <!--Fila 1-->
+                        <div class="row">
+                            <!--Codigo del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Código</h5>
+                                    <input type="text" class="form-control" placeholder="Código del producto" name="Codigo">
+                                </div>
+                            </div>
+                            <!--Nombre del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Nombre</h5>
+                                    <input type="text" class="form-control" placeholder="Nombre del producto" name="Nombre" required>
+                                </div>
+                            </div>
+                            <!--Precio del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Precio</h5>
+                                    <input type="text" class="form-control" placeholder="Precio del producto" name="Precio" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fila 2-->
+                        <div class="row">
+                            <!--Descripción del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Descripción</h5>
+                                    <input type="text" class="form-control" placeholder="Descripción del producto" name="Descripcion" required>
+                                </div>
+                            </div>
+                            <!--Stock del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Stock</h5>
+                                    <input type="number" class="form-control" placeholder="Stock del producto" name="Stock" required>
+                                </div>
+                            </div>
+                            <!--Fabricante del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Fabricante</h5>
+                                    <input type="text" class="form-control" placeholder="Fabricante del producto" name="Fabricante" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fila 3-->
+                        <div class="row">
+                            <!--Categoria del producto-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <h5 class="mt-3">Categoria</h5>
+                                    <input type="text" class="form-control" placeholder="Categoria del producto" name="Categoria" required>
+                                </div>
+                            </div>
+                            <!--Imagen del producto-->
+                            <div class="col-md-4">
+                                <h5 class="form-group mt-3" for="Imagen">Imagen</h5>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="Imagen" name="imagen" aria-describedby="inputGroupFileAddon" aria-label="Imagen">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Crear producto-->
+                        <div class="form-group col-11 text-lg-center">
+                            <button type="submit" class="btn btn-primary mt-3">Crear producto</button>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>
-<script>
-    function validarFormulario() {
-        var codigo = document.getElementsByName("Codigo")[0].value;
-        var nombre = document.getElementsByName("Nombre")[0].value;
-        var precio = document.getElementsByName("Precio")[0].value;
-        var descripcion = document.getElementsByName("Descripcion")[0].value;
-        // Validar los demás campos
+</body>
 
-        if (codigo.trim() === "") {
-            alert("Por favor, ingresa el código del producto.");
-            return false;
-        }
-
-        if (nombre.trim() === "") {
-            alert("Por favor, ingresa el nombre del producto.");
-            return false;
-        }
-
-        if (precio.trim() === "") {
-            alert("Por favor, ingresa el precio del producto.");
-            return false;
-        }
-
-        if (descripcion.trim() === "") {
-            alert("Por favor, ingresa la descripción del producto.");
-            return false;
-        }
-
-        return true;
-    }
-</script>
